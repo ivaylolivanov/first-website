@@ -1,7 +1,23 @@
+html, body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+body {
+    display: block;
+    min-height: 100%;
+    align-content: center;
+}
+
+#profile-img {
+    width: 20%;
+    height: 20%;
+}
+
 #main-content {
-    text-align: center;
-    vertical-align: middle;
-    display: inline;
-    color: red;
-    position: relative;
+    height: 40%;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
 }
