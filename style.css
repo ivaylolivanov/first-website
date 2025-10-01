@@ -4,20 +4,41 @@ html, body {
     height: 100%;
 }
 
-body {
-    display: block;
-    min-height: 100%;
-    align-content: center;
-}
-
-#profile-img {
-    width: 20%;
-    height: 20%;
-}
+/* body { */
+/*     display: block; */
+/*     min-height: 100%; */
+/*     align-content: center; */
+/* } */
 
 #main-content {
     height: 40%;
     width: 40%;
     margin-left: auto;
     margin-right: auto;
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr) 2fr;
+    grid-template-rows: repeat(6, 1fr);
+}
+
+#profile-img {
+    grid-column: span 4;
+    grid-row: span 5;
+    /* grid-column-start: 1; */
+    /* grid-column-end:  4; */
+}
+
+img {
+    width: 100%;
+    height: 100%;
+}
+
+#navigation {
+    grid-column: span 1;
+    grid-row: span 6;
+}
+
+#social-media {
+    grid-column: span 4;
+    grid-row: span 1;
 }
