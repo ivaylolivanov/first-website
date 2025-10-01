@@ -3,22 +3,30 @@
   <head>
     <title>Ivaylo's portfolio</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/5b521557a7.js" crossorigin="anonymous"></script>
   </head>
   <body>
-    <table id="main-content">
-      <tr>
-        <td rowspan="3" colspan="4"><image src="images/MyAvatarBeanieHat.png" /></td>
-        <td>Blog</td>
-      </tr>
-      <tr>
-        <td>Projects</td>
-      </tr>
-      <tr>
-        <td>About</td>
-      </tr>
-      <tr>
-        <td>GitHub</td><td>X</td><td>LinkedIn</td><td colspan="2">Mail</td>
-      </tr>
-    </table>
+    <div id="main-content">
+      <div class="profile-img-container">
+        <img id="profile-img" src="images/MyAvatarBeanieHat.png"/>
+      </div>
+      <nav>
+        <div class="nav-btn">
+          Portfolio
+        </div>
+        <div class="nav-btn">
+          Blog
+        </div>
+        <div class="nav-btn">
+          About
+        </div>
+      </nav>
+      <div class="social-container">
+        <span class="social-btn"><i class="fa-brands fa-github"></i></span>
+        <span class="social-btn"><i class="fa-brands fa-x-twitter"></i></span>
+        <span class="social-btn"><i class="fa-brands fa-linkedin-in"></i></span>
+        <span class="social-btn"><i class="fa-regular fa-envelope"></i></span>
+      </div>
+    </div>
   </body>
 </html>
