@@ -4,13 +4,15 @@ html, body {
     height: 100%;
 }
 
-/* body { */
-/*     display: block; */
-/*     min-height: 100%; */
-/*     align-content: center; */
-/* } */
+body {
+    background-color: #171717;
+    /* display: block; */
+    /* min-height: 100%; */
+    /* align-content: center; */
+}
 
 #main-content {
+    color: white;
     height: 40%;
     width: 40%;
     margin-left: auto;
@@ -36,6 +38,14 @@ img {
 #navigation {
     grid-column: span 1;
     grid-row: span 6;
+    display: grid;
+    text-align: center;
+    align-items: center;
+}
+
+#navigation ul {
+    list-style-type: none;
+    padding: 0;
 }
 
 #social-media {
