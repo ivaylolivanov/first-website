@@ -1,4 +1,5 @@
-# First Website
+# Изграждане на статичен уебсайт (HTML, CSS & JS)
 
-## Goal
-With this project I am to trace the learning process of creating a static webpage, hosted through GitLab Pages.
+Това хранилище проследява **процеса на създаване на статичен уебсайт** – от основната HTML структура, през стилизиране с CSS, до добавяне на лека интерактивност с JavaScript.
+
+Всичко, което правим го качвам тук в състоянието, в което сме го оставили в края на часа.
