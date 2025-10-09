@@ -47,10 +47,24 @@ img {
     margin: 0;
     display: flex;
     flex-direction: column;
+    height: 100%;
+    justify-content: center;
 }
 
 #navigation li {
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
 
+#navigation a {
+    text-decoration: none;
+    color: inherit;
+}
+
+#navigation a:hover {
+    color: cyan;
 }
 
 #social-media {
