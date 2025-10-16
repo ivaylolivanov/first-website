@@ -45,13 +45,13 @@ img:hover {
 }
 
 #name {
-    display: none;
+    opacity: 0;
 }
 
-#name:hover {
-    display: block;
-    position: absolute;
-}
+/* #name:hover { */
+/*     display: block; */
+/*     position: absolute; */
+/* } */
 
 #navigation {
     grid-column: span 1;
