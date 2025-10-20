@@ -5,4 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
     profileImg.addEventListener("mouseenter", () => {
         nameTag.style.opacity = 1;
     });
+
+    profileImg.addEventListener("mouseleave", () => {
+        nameTag.style.opacity = 0;
+    });
 });
