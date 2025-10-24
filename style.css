@@ -1,3 +1,9 @@
+:root {
+    --profile-pic-face-color: #f8a86f;
+    --background-blur-width: 28rem;
+    --background-blur-height: 12rem;
+}
+
 html, body {
     padding: 0;
     margin: 0;
@@ -13,8 +19,8 @@ body {
 
 #main-content {
     color: white;
-    height: 40%;
-    width: 40%;
+    height: 16rem;
+    width: 28rem;
     margin-left: auto;
     margin-right: auto;
     display: grid;
@@ -27,8 +33,8 @@ body {
     content: "";
     position: absolute;
 
-    width: 60%;
-    height: 55%;
+    width: var(--background-blur-width);
+    height: var(--background-blur-height);
 
     top: 50%;
     left: 50%;
@@ -42,7 +48,7 @@ body {
         rgba(100, 100, 100, 0.4));
     filter: blur(70px);
 
-    /* z-index: -1; */
+    z-index: -1;
 }
 
 #main-content::after {
@@ -50,8 +56,8 @@ body {
     content: "";
     position: absolute;
 
-    width: 60%;
-    height: 55%;
+    width: var(--background-blur-width);
+    height: var(--background-blur-height);
 
     top: 50%;
     left: 50%;
@@ -63,9 +69,10 @@ body {
         rgba(248, 168, 111, 0.8),
         rgba(248, 168, 111, 0.6),
         rgba(248, 168, 111, 0.4));
-    filter: blur(70px);
+    filter: blur(85px);
 
     z-index: -1;
+    transition: opacity 0.5s ease;
 }
 
 #main-content:hover::after {
@@ -83,7 +90,7 @@ body {
     grid-row: span 5;
     position: relative;
     border: 1px solid black;
-    border-radius: 5% 0 0 0;
+    border-radius: .375em 0 0 0;
 
     overflow: hidden;
 }
@@ -106,7 +113,7 @@ img:hover {
     left: 50%;
     top: 100%;
     transform: translate(-50%, -50%);
-    background-color: rgba(25, 25, 25, 0.6);
+    background-color: rgba(25, 25, 25, 0.8);
     border-radius: 50px;
     border: 1px solid black;
     padding: 0.4em;
@@ -115,7 +122,7 @@ img:hover {
 
 #profile-img:hover #name {
     top: 85%;
-    color: peachpuff;
+    color: #f8a86f;
 }
 
 #navigation {
@@ -141,16 +148,18 @@ img:hover {
     align-items: center;
     justify-content: center;
     display: flex;
-    font-family: roboto;
+    font-family: Orbitron, sans-serif;
+    font-size: 1.5em;
     border: 1px solid black;
+    background-color: #171717;
 }
 
 #navigation li:first-child {
-    border-radius: 0 5% 0 0;
+    border-radius: 0 .375em 0 0;
 }
 
 #navigation li:last-child {
-    border-radius: 0 0 5% 0;
+    border-radius: 0 0 .375em 0;
 }
 
 #navigation li:hover {
@@ -177,11 +186,65 @@ img:hover {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 1.5em;
 
     background-color: #171717;
     border: 1px solid black;
+
+    transition: color 0.5s ease;
+}
+
+.social-media-btn:hover {
+    color: var(--profile-pic-face-color);
 }
 
 #social-media .social-media-btn:first-child {
-    border-radius: 0 0 0 5%;
+    border-radius: 0 0 0 .375em;
+}
+
+@media (max-width: 480px) {
+    #main-content {
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(12, 1fr);
+
+        width: 16rem;
+        height: 28rem;
+    }
+
+    #main-content::after {
+        width: var(--background-blur-height);
+        height: var(--background-blur-width);
+    }
+
+    #main-content::before {
+        width: var(--background-blur-height);
+        height: var(--background-blur-width);
+    }
+
+    #profile-img {
+        grid-row-start: 1;
+        grid-row-end: 5;
+    }
+
+    #navigation {
+        grid-column: span 4;
+        grid-row-start: 6;
+        grid-row-end: 12;
+    }
+
+    #social-media {
+        grid-row-start: 5;
+    }
+
+    #name {
+        font-size: 0.9em;
+    }
+
+    #navigation li {
+        font-size: 0.9em;
+    }
+
+    .social-media-btn {
+        font-size: 1em;
+    }
 }
