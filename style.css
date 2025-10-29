@@ -6,6 +6,7 @@
 
   --main-content-width: 24rem;
   --main-content-height: 14rem;
+  --profile-picture-face-color: #f8a86d;
 }
 
 html, body {
@@ -39,8 +40,8 @@ body {
     content: "";
     position: absolute;
 
-    width: 32rem;
-    height: 16rem;
+    width: var(--main-content-aura-width);
+    height: var(--main-content-aura-height);
 
     top: 50%;
     left: 50%;
@@ -93,6 +94,10 @@ body {
 }
 
 #profile-img {
+    opacity: 0;
+    animation: fadeInRight 0.8s ease forwards;
+    animation-delay: 0.2s;
+
     grid-column: span 4;
     grid-row: span 5;
     position: relative;
@@ -129,7 +134,7 @@ img:hover {
 
 #profile-img:hover #name {
     top: 85%;
-    color: peachpuff;
+    color: var(--profile-picture-face-color);
 }
 
 #navigation {
@@ -151,6 +156,9 @@ img:hover {
 }
 
 #navigation li {
+    opacity: 0;
+    animation: fadeInRight 0.8s ease forwards;
+
     flex: 1;
     align-items: center;
     justify-content: center;
@@ -171,7 +179,7 @@ img:hover {
 }
 
 #navigation li:hover {
-    color: peachpuff;
+    color: var(--profile-picture-face-color);
 }
 
 #navigation a {
@@ -204,7 +212,7 @@ img:hover {
 }
 
 .social-media-btn:hover {
-    color: peachpuff;
+    color: var(--profile-picture-face-color);
 }
 
 #social-media .social-media-btn:first-child {
@@ -245,5 +253,17 @@ img:hover {
         grid-row-start: 6;
         grid-row-end: 12;
         grid-column: span 4;
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
     }
 }
