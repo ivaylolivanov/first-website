@@ -3,6 +3,9 @@
   --border-radius: 0.375em;
   --blob-width: 32rem;
   --blob-height: 16rem;
+
+  --main-content-width: 24rem;
+  --main-content-height: 14rem;
 }
 
 html, body {
@@ -20,8 +23,9 @@ body {
 
 #main-content {
     color: white;
-    width: 24rem;
-    height: 14rem;
+    width: var(--main-content-width);
+    height: var(--main-content-height);
+
     margin-left: auto;
     margin-right: auto;
     display: grid;
@@ -212,6 +216,19 @@ img:hover {
     #main-content {
         grid-template-columns: repeat(4, 1fr);
         grid-template-rows: repeat(12, 1fr);
+
+        width: var(--main-content-height);
+        height: var(--main-content-width);
+    }
+
+    #main-content::before {
+        width: var(--blob-height);
+        height: var(--blob-width);
+    }
+
+    #main-content::after {
+        width: var(--blob-height);
+        height: var(--blob-width);
     }
 
     #profile-img {
