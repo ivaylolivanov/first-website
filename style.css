@@ -1,5 +1,6 @@
 :root {
   --button-bg-color: #171717;
+  --border-radius: 0.375em;
 }
 
 html, body {
@@ -89,7 +90,7 @@ body {
     grid-row: span 5;
     position: relative;
     border: 1px solid black;
-    border-radius: 5% 0 0 0;
+    border-radius: var(--border-radius) 0 0 0;
 
     overflow: hidden;
 }
@@ -155,11 +156,11 @@ img:hover {
 }
 
 #navigation li:first-child {
-    border-radius: 0 5% 0 0;
+    border-radius: 0 var(--border-radius) 0 0;
 }
 
 #navigation li:last-child {
-    border-radius: 0 0 5% 0;
+    border-radius: 0 0 var(--border-radius) 0;
 }
 
 #navigation li:hover {
@@ -196,7 +197,7 @@ img:hover {
 }
 
 #social-media .social-media-btn:first-child {
-    border-radius: 0 0 0 5%;
+    border-radius: 0 0 0 var(--border-radius);
 }
 
 @media(max-width: 480px)
