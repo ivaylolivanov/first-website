@@ -40,8 +40,8 @@ body {
     content: "";
     position: absolute;
 
-    width: var(--main-content-aura-width);
-    height: var(--main-content-aura-height);
+    width: var(--blob-width);
+    height: var(--blob-height);
 
     top: 50%;
     left: 50%;
