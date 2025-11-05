@@ -25,11 +25,28 @@
         <span class="social-media-btn"><i class="fa-brands fa-github"></i></span>
         <span class="social-media-btn"><i class="fa-brands fa-x-twitter"></i></span>
         <span class="social-media-btn"><i class="fa-brands fa-linkedin-in"></i></span>
-        <span class="social-media-btn"><i class="fa-solid fa-envelope"></i></span>
+        <span id="contact-form-btn" class="social-media-btn"><i class="fa-solid fa-envelope"></i></span>
+      </div>
+
+      <div id="contact-form-box" class="hidden">
+        <div class="contact-box">
+          <h2>Contact Me</h2>
+          <form id="contact-form">
+            <label for="text">Name:</label>
+            <input type="text" id="sender" name="sender" required>
+
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required></textarea>
+
+            <button type="submit" id="contact-form-send-btn">Send</button>
+            <button type="button" id="contact-form-close-btn">Close</button>
+          </form>
+        </div>
       </div>
 
     </div>
 
     <script src="./scripts/name-toggle.js"></script>
+    <script src="./scripts/contact-form.js"></script>
   </body>
 </html>
