@@ -284,6 +284,69 @@ img:hover {
     }
 }
 
+.hidden {
+    display: none;
+}
+
+#contact-form-box {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 998;
+
+    font-family: Orbitron, sans-serif;
+}
+
+.contact-box {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    background-color: #222;
+    color: white;
+    padding: 1.5em;
+    border-radius: 0.5em;
+    z-index: 999;
+
+    width: 30%;
+
+    opacity: 0;
+    animation: popOutAndTranslate 0.3s ease forwards;
+}
+
+.contact-box input,
+.contact-box textarea {
+  width: 100%;
+  margin: 0.5em 0 1em;
+  padding: 0.5em;
+  border-radius: 0.3em;
+  border: 1px solid #444;
+  background-color: #111;
+  color: white;
+}
+
+.contact-box textarea {
+    height: 10em;
+    resize: vertical;
+}
+
+.contact-box button {
+  background-color: var(--button-bg-color);
+  color: white;
+  border: 1px solid black;
+  padding: 0.5em 1em;
+  margin-right: 0.5em;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+}
+
+.contact-box button:hover {
+  color: var(--profile-picture-face-color);
+}
+
 @keyframes fadeInRight {
     from {
         opacity: 0;
@@ -321,6 +384,23 @@ img:hover {
 
     100% {
         transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes popOutAndTranslate {
+    0% {
+        transform: translate(-50%, -50%) scale(0.25);
+        opacity: 0;
+    }
+
+    80% {
+        transform: translate(-50%, -50%) scale(1.1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1);
         opacity: 1;
     }
 }
