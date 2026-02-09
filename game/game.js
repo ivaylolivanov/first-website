@@ -14,10 +14,17 @@ let buttonWDown = false;
 let buttonSDown = false;
 
 addEventListener("keydown", (event) => {
-    buttonADown = (event.key === "a");
-    buttonDDown = (event.key === "d");
-    buttonWDown = (event.key === "w");
-    buttonSDown = (event.key === "s");
+    if (event.key === "a")
+        buttonADown = true;
+
+    if (event.key === "d")
+        buttonDDown = true;
+
+    if (event.key === "w")
+        buttonWDown = true;
+
+    if (event.key === "s")
+        buttonSDown = true;
 });
 
 addEventListener("keyup", (event) => {
@@ -51,6 +58,21 @@ function update()
     if ((playerX + (playerWidth/2)) >= canvas.width)
     {
         playerX = canvas.width - (playerWidth/2);
+    }
+
+    if ((playerX - (playerWidth/2)) < 0)
+    {
+        playerX = playerWidth/2;
+    }
+
+    if ((playerY + (playerHeight/2)) >= canvas.height)
+    {
+        playerY = canvas.height - (playerHeight/2);
+    }
+
+    if ((playerY - (playerHeight/2)) < 0)
+    {
+        playerY = playerHeight/2;
     }
 
     context.clearRect(0, 0, canvas.width, canvas.height);
