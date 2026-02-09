@@ -6,22 +6,54 @@ const playerHeight = 100;
 
 let playerX = 400;
 let playerY = 300;
+let playerSpeed = 5;
+
+let buttonADown = false;
+let buttonDDown = false;
+let buttonWDown = false;
+let buttonSDown = false;
 
 addEventListener("keydown", (event) => {
+    buttonADown = (event.key === "a");
+    buttonDDown = (event.key === "d");
+    buttonWDown = (event.key === "w");
+    buttonSDown = (event.key === "s");
+});
+
+addEventListener("keyup", (event) => {
     if (event.key === "a")
-        playerX -= 5;
-    else if (event.key === "d")
-        playerX += 5;
+        buttonADown = false;
+
+    if (event.key === "d")
+        buttonDDown = false;
+
+    if (event.key === "w")
+        buttonWDown = false;
+
+    if (event.key === "s")
+        buttonSDown = false;
 });
 
 function update()
 {
-    if ((playerX + (playerWidth/2)) >= 800)
+    if (buttonADown)
+        playerX -= playerSpeed;
+
+    if (buttonDDown)
+        playerX += playerSpeed;
+
+    if (buttonWDown)
+        playerY -= playerSpeed;
+
+    if (buttonSDown)
+        playerY += playerSpeed;
+
+    if ((playerX + (playerWidth/2)) >= canvas.width)
     {
-        playerX = 800 - (playerWidth/2);
+        playerX = canvas.width - (playerWidth/2);
     }
 
-    context.clearRect(0, 0, 800, 600);
+    context.clearRect(0, 0, canvas.width, canvas.height);
     context.fillStyle = "#2A2C24";
     context.fillRect(
         playerX - (playerWidth  / 2),
