@@ -4,6 +4,10 @@ const context = canvas.getContext("2d");
 const playerWidth  = 70;
 const playerHeight = 100;
 
+const targetFPS = 60;
+
+let timeLast = 0;
+
 let playerX = 400;
 let playerY = 300;
 let playerSpeed = 5;
@@ -41,8 +45,16 @@ addEventListener("keyup", (event) => {
         buttonSDown = false;
 });
 
-function update()
+function update(timeCurrent)
 {
+    const deltaTime = timeCurrent - timeLast;
+    const singleFrameTime = 1000 / targetFPS;
+    if (deltaTime < singleFrameTime)
+    {
+        console.log("Delaying");
+        return;
+    }
+
     if (buttonADown)
         playerX -= playerSpeed;
 
@@ -83,7 +95,10 @@ function update()
         playerWidth,
         playerHeight);
 
+
+    timeLast = timeCurrent;
+
     requestAnimationFrame(update);
 }
 
-update();
+requestAnimationFrame(update);
