@@ -31,6 +31,27 @@ let buttonWDown = false;
 let buttonSDown = false;
 let buttonSpaceDown = false;
 
+class Entity
+{
+    constructor(type, x, y, w, h, speed)
+    {
+        this.type   = type;
+        this.x      = x;
+        this.y      = y;
+        this.height = h;
+        this.width  = w;
+        this.speed  = speed;
+    }
+
+    move(dX, dY)
+    {
+        this.x += dX;
+        this.y += dY;
+    }
+}
+
+const player = new Entity("player", 400, 300, 70, 100, 125);
+
 addEventListener("keydown", (event) => {
     if (event.key === "a")
         buttonADown = true;
@@ -79,42 +100,42 @@ function update(timeCurrent)
     }
 
     if (buttonADown)
-        playerX -= playerSpeed * deltaTime;
+        player.move(-player.speed * deltaTime, 0);
 
     if (buttonDDown)
-        playerX += playerSpeed * deltaTime;
+        player.move(player.speed * deltaTime, 0);
 
     if (buttonWDown)
-        playerY -= playerSpeed * deltaTime;
+        player.move(0, -player.speed * deltaTime);
 
     if (buttonSDown)
-        playerY += playerSpeed * deltaTime;
+        player.move(0, player.speed * deltaTime);
 
     if (buttonSpaceDown)
     {
         bulletRequired = true;
-        bulletX = playerX;
-        bulletY = playerY
+        bulletX = player.x;
+        bulletY = player.y
     }
 
-    if ((playerX + (playerWidth/2)) >= canvas.width)
+    if ((player.x + (player.width / 2)) >= canvas.width)
     {
-        playerX = canvas.width - (playerWidth/2);
+        player.x = canvas.width - (player.width / 2);
     }
 
-    if ((playerX - (playerWidth/2)) < 0)
+    if ((player.x - (player.width / 2)) < 0)
     {
-        playerX = playerWidth/2;
+        player.x = player.width / 2;
     }
 
-    if ((playerY + (playerHeight/2)) >= canvas.height)
+    if ((player.y + (player.height / 2)) >= canvas.height)
     {
-        playerY = canvas.height - (playerHeight/2);
+        player.y = canvas.height - (player.height / 2);
     }
 
-    if ((playerY - (playerHeight/2)) < 0)
+    if ((player.y - (player.height / 2)) < 0)
     {
-        playerY = playerHeight/2;
+        player.y = player.height / 2;
     }
 
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -128,7 +149,7 @@ function update(timeCurrent)
         bullet.arc(
             bulletX,
             bulletY,
-            30,
+            15,
             0,
             Math.PI * 2);
         context.fill(bullet);
@@ -143,11 +164,10 @@ function update(timeCurrent)
 
     context.fillStyle = "#2A2C24";
     context.fillRect(
-        playerX - (playerWidth  / 2),
-        playerY - (playerHeight / 2),
-        playerWidth,
-        playerHeight);
-
+        player.x - (player.width  / 2),
+        player.y - (player.height / 2),
+        player.width,
+        player.height);
 
     timeLast = timeCurrent;
 
