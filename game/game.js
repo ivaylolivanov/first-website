@@ -50,7 +50,32 @@ class Entity
     }
 }
 
-const player = new Entity("player", 400, 300, 70, 100, 125);
+const player = new Entity(
+    "player",
+    playerX,
+    playerY,
+    playerWidth,
+    playerHeight,
+    playerSpeed);
+const enemy = new Entity(
+    "enemy",
+    enemyX,
+    enemyY,
+    enemyWidth,
+    enemyHeight,
+    enemySpeed);
+
+const game_entities = [];
+game_entities.push(player);
+game_entities.push(enemy);
+game_entities.push(new Entity(
+    "enemy",
+    Math.random() * 100,
+    Math.random() * 100,
+    enemyWidth,
+    enemyHeight,
+    enemySpeed
+));
 
 addEventListener("keydown", (event) => {
     if (event.key === "a")
@@ -155,19 +180,19 @@ function update(timeCurrent)
         context.fill(bullet);
     }
 
-    context.fillStyle = "red";
-    context.fillRect(
-        enemyX - (enemyWidth  / 2),
-        enemyY - (enemyHeight / 2),
-        enemyWidth,
-        enemyHeight);
+    for (entity of game_entities)
+    {
+        if (entity.type === "player")
+            context.fillStyle = "#2A2C24";
+        else
+            context.fillStyle = "red";
 
-    context.fillStyle = "#2A2C24";
-    context.fillRect(
-        player.x - (player.width  / 2),
-        player.y - (player.height / 2),
-        player.width,
-        player.height);
+        context.fillRect(
+            entity.x - (entity.width  / 2),
+            entity.y - (entity.height / 2),
+            entity.width,
+            entity.height);
+    }
 
     timeLast = timeCurrent;
 
