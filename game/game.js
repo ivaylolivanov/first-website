@@ -31,36 +31,70 @@ let buttonWDown = false;
 let buttonSDown = false;
 let buttonSpaceDown = false;
 
-class Entity
+class Vector2
 {
-    constructor(type, x, y, w, h, speed)
+    constructor(x, y)
     {
-        this.type   = type;
-        this.x      = x;
-        this.y      = y;
-        this.height = h;
-        this.width  = w;
-        this.speed  = speed;
+        this.x = x;
+        this.y = y;
     }
 
-    move(dX, dY)
+    static add(a, b)
     {
-        this.x += dX;
-        this.y += dY;
+        var result = new Vector2(a.x + b.x, a.y + b.y);
+        return result;
+    }
+
+    static diff(a, b)
+    {
+        var result = new Vector2(a.x - b.x, a.y - b.y);
+        return result;
+    }
+
+    normalize()
+    {
+        let magnitude = Math.sqrt(this.x * this.x + this.y * this.y);
+        if (magnitude === 0)
+            return new Vector2(0, 0);
+
+        let normalized = new Vector2(this.x / magnitude, this.y / magnitude);
+        return normalized;
+    }
+
+    scale(fraction)
+    {
+        this.x *= fraction;
+        this.y *= fraction;
+    }
+}
+
+class Entity
+{
+    constructor(type, pos, w, h, speed)
+    {
+        this.type     = type;
+        this.position = pos;
+        this.height   = h;
+        this.width    = w;
+        this.speed    = speed;
+    }
+
+    move(step)
+    {
+        this.position = Vector2.add(this.position, step);
     }
 }
 
 const player = new Entity(
     "player",
-    playerX,
-    playerY,
+    new Vector2(playerX, playerY),
     playerWidth,
     playerHeight,
     playerSpeed);
+
 const enemy = new Entity(
     "enemy",
-    enemyX,
-    enemyY,
+    new Vector2(enemyX, enemyY),
     enemyWidth,
     enemyHeight,
     enemySpeed);
@@ -70,8 +104,7 @@ game_entities.push(player);
 game_entities.push(enemy);
 game_entities.push(new Entity(
     "enemy",
-    Math.random() * 100,
-    Math.random() * 100,
+    new Vector2(Math.random() * 100, Math.random() * 100),
     enemyWidth,
     enemyHeight,
     enemySpeed
@@ -124,43 +157,47 @@ function update(timeCurrent)
         return;
     }
 
+    let moveDirection = new Vector2(0, 0);
     if (buttonADown)
-        player.move(-player.speed * deltaTime, 0);
+        moveDirection.x -= player.speed;
 
     if (buttonDDown)
-        player.move(player.speed * deltaTime, 0);
+        moveDirection.x += player.speed;
 
     if (buttonWDown)
-        player.move(0, -player.speed * deltaTime);
+        moveDirection.y -= player.speed;
 
     if (buttonSDown)
-        player.move(0, player.speed * deltaTime);
+        moveDirection.y += player.speed;
+
+    moveDirection.scale(deltaTime);
+    player.move(moveDirection);
 
     if (buttonSpaceDown)
     {
         bulletRequired = true;
-        bulletX = player.x;
-        bulletY = player.y
+        bulletX = player.position.x;
+        bulletY = player.position.y
     }
 
-    if ((player.x + (player.width / 2)) >= canvas.width)
+    if ((player.position.x + (player.width / 2)) >= canvas.width)
     {
-        player.x = canvas.width - (player.width / 2);
+        player.position.x = canvas.width - (player.width / 2);
     }
 
-    if ((player.x - (player.width / 2)) < 0)
+    if ((player.position.x - (player.width / 2)) < 0)
     {
-        player.x = player.width / 2;
+        player.position.x = player.width / 2;
     }
 
-    if ((player.y + (player.height / 2)) >= canvas.height)
+    if ((player.position.y + (player.height / 2)) >= canvas.height)
     {
-        player.y = canvas.height - (player.height / 2);
+        player.position.y = canvas.height - (player.height / 2);
     }
 
-    if ((player.y - (player.height / 2)) < 0)
+    if ((player.position.y - (player.height / 2)) < 0)
     {
-        player.y = player.height / 2;
+        player.position.y = player.height / 2;
     }
 
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -182,14 +219,21 @@ function update(timeCurrent)
 
     for (entity of game_entities)
     {
+        if (entity.type === "enemy")
+        {
+            context.fillStyle = "red";
+            let direction = Vector2.diff(player.position, entity.position);
+            let dirNormalized = direction.normalize();
+            dirNormalized.scale(entity.speed * deltaTime);
+            entity.move(dirNormalized);
+        }
+
         if (entity.type === "player")
             context.fillStyle = "#2A2C24";
-        else
-            context.fillStyle = "red";
 
         context.fillRect(
-            entity.x - (entity.width  / 2),
-            entity.y - (entity.height / 2),
+            entity.position.x - (entity.width  / 2),
+            entity.position.y - (entity.height / 2),
             entity.width,
             entity.height);
     }
