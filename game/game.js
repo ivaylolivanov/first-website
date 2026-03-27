@@ -15,21 +15,10 @@ let playerX = 400;
 let playerY = 300;
 let playerSpeed = 125;
 
+const enemiesCount = 30;
 let enemyX = 100;
 let enemyY = 100;
 let enemySpeed = 125;
-
-let bulletX = 400;
-let bulletY = 300;
-let bulletSpeed = 500;
-
-let bulletRequired = false;
-
-let buttonADown = false;
-let buttonDDown = false;
-let buttonWDown = false;
-let buttonSDown = false;
-let buttonSpaceDown = false;
 
 class Vector2
 {
@@ -74,8 +63,8 @@ class Entity
     {
         this.type     = type;
         this.position = pos;
-        this.height   = h;
         this.width    = w;
+        this.height   = h;
         this.speed    = speed;
     }
 
@@ -85,6 +74,13 @@ class Entity
     }
 }
 
+let mousePosition = new Vector2(0, 0);
+let buttonADown     = false;
+let buttonDDown     = false;
+let buttonWDown     = false;
+let buttonSDown     = false;
+let buttonMouseDown = false;
+
 const player = new Entity(
     "player",
     new Vector2(playerX, playerY),
@@ -92,23 +88,19 @@ const player = new Entity(
     playerHeight,
     playerSpeed);
 
-const enemy = new Entity(
-    "enemy",
-    new Vector2(enemyX, enemyY),
-    enemyWidth,
-    enemyHeight,
-    enemySpeed);
-
 const game_entities = [];
 game_entities.push(player);
-game_entities.push(enemy);
-game_entities.push(new Entity(
-    "enemy",
-    new Vector2(Math.random() * 100, Math.random() * 100),
-    enemyWidth,
-    enemyHeight,
-    enemySpeed
-));
+
+addEventListener('mousedown', (event) => {
+    buttonMouseDown = true;
+
+    mousePosition.x = event.clientX;
+    mousePosition.y = event.clientY;
+});
+
+addEventListener('mouseup', (event) => {
+    buttonMouseDown = false;
+});
 
 addEventListener("keydown", (event) => {
     if (event.key === "a")
@@ -122,9 +114,6 @@ addEventListener("keydown", (event) => {
 
     if (event.key === "s")
         buttonSDown = true;
-
-    if (event.key === " ")
-        buttonSpaceDown = true;
 });
 
 addEventListener("keyup", (event) => {
@@ -139,10 +128,23 @@ addEventListener("keyup", (event) => {
 
     if (event.key === "s")
         buttonSDown = false;
-
-    if (event.key === " ")
-        buttonSpaceDown = false;
 });
+
+function intialize()
+{
+    for (var i = 0; i < enemiesCount; i++)
+    {
+        game_entities.push(
+            new Entity(
+                "enemy",
+                new Vector2(Math.random() * canvas.width, Math.random() * canvas.height),
+                enemyWidth,
+                enemyHeight,
+                30
+            )
+        );
+    }
+}
 
 function update(timeCurrent)
 {
@@ -173,11 +175,19 @@ function update(timeCurrent)
     moveDirection.scale(deltaTime);
     player.move(moveDirection);
 
-    if (buttonSpaceDown)
+    if (buttonMouseDown)
     {
-        bulletRequired = true;
-        bulletX = player.position.x;
-        bulletY = player.position.y
+        var direction = Vector2.diff(mousePosition, player.position);
+        direction = direction.normalize();
+        game_entities.push(
+            new Entity(
+                "bullet",
+                player.position,
+                15,
+                15,
+                50
+            )
+        );
     }
 
     if ((player.position.x + (player.width / 2)) >= canvas.width)
@@ -202,21 +212,6 @@ function update(timeCurrent)
 
     context.clearRect(0, 0, canvas.width, canvas.height);
 
-    if (bulletRequired)
-    {
-        bulletX -= bulletSpeed * deltaTime;
-
-        context.fillStyle = "black";
-        const bullet = new Path2D();
-        bullet.arc(
-            bulletX,
-            bulletY,
-            15,
-            0,
-            Math.PI * 2);
-        context.fill(bullet);
-    }
-
     for (entity of game_entities)
     {
         if (entity.type === "enemy")
@@ -226,6 +221,19 @@ function update(timeCurrent)
             let dirNormalized = direction.normalize();
             dirNormalized.scale(entity.speed * deltaTime);
             entity.move(dirNormalized);
+        }
+
+        if (entity.type === "bullet")
+        {
+            context.fillStyle = "black";
+            const bullet = new Path2D();
+            bullet.arc(
+                entity.position.x,
+                entity.position.y,
+                entity.width,
+                0,
+                Math.PI * 2);
+            context.fill(bullet);
         }
 
         if (entity.type === "player")
@@ -243,4 +251,5 @@ function update(timeCurrent)
     requestAnimationFrame(update);
 }
 
+intialize();
 requestAnimationFrame(update);
