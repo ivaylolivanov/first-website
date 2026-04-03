@@ -237,7 +237,9 @@ function update(timeCurrent)
         }
 
         if (entity.type === "player")
+        {
             context.fillStyle = "#2A2C24";
+        }
 
         context.fillRect(
             entity.position.x - (entity.width  / 2),
